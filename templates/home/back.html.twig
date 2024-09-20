@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}KeyStone{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    {% block StyleSheets %}
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/img/bg-img/logoBlack.png">
+    <!-- jsvectormap css -->
+    <link href="/Backend/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+    <!--Swiper slider css-->
+    <link href="/Backend/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+    <!-- Layout config Js -->
+    <script src="/Backend/assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="/Backend/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="/Backend/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="/Backend/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="/Backend/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    {% endblock %}
+</head>
+
+<body>
+{% block Header %}
+<div id="layout-wrapper">
+    <header id="page-topbar">
+        <div class="layout-width">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box horizontal-logo">
+                        <a href="{{ path('app_back') }}" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="/img/bg-img/Key-W-logo.png" alt="" height="22">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/img/bg-img/Key-W-logo.png" alt="" height="17">
+                            </span>
+                        </a>
+                        <a href="{{ path('app_back') }}" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="/img/bg-img/Key-W-logo.png" alt="" height="22">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/img/bg-img/Key-W-logo.png" alt="" height="17">
+                            </span>
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger material-shadow-none" id="topnav-hamburger-icon">
+                        <span class="hamburger-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+                    <!-- App Search-->
+                    <form class="app-search d-none d-md-block">
+                        <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="">
+                            <span class="mdi mdi-magnify search-widget-icon"></span>
+                            <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown d-md-none topbar-head-dropdown header-item">
+                        <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bx bx-search fs-22"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
+                            <form class="p-3">
+                                <div class="form-group m-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                        <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="ms-1 header-item d-none d-sm-flex">
+                        <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                            <i class='bx bx-fullscreen fs-22'></i>
+                        </button>
+                    </div>
+                    <div class="ms-1 header-item d-none d-sm-flex">
+                        <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle light-dark-mode">
+                            <i class='bx bx-moon fs-22'></i>
+                        </button>
+                    </div>
+                    <div class="dropdown ms-sm-3 header-item topbar-user">
+                        <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="d-flex align-items-center">
+                               <span class="text-start ms-xl-2">
+                                    <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ app.user.name }} {{ app.user.lastName }}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Admin</span>
+                                </span>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <h6 class="dropdown-header">Welcome {{ app.user.name }}!</h6>
+                            <a class="dropdown-item" href="{{ path('app_profileAdmin') }}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </header>
+
+    {% block menu %}
+    <style>
+        /* custom.css */
+        .custom-navbar-menu {
+            background-color: #1F1F1F; /* Change to your desired color */
+            color: #fff; /* Change text color to white */
+        }
+         .page-title {
+        font-size: 3em;
+        color: #FFFFFF;
+        background: linear-gradient(135deg, #FF0000 0%, #000000 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        border-radius: 8px;
+        display: inline-block;
+        animation: fadeIn 1.5s ease-in-out;
+        position: relative;
+        z-index: 1;
+    }
+
+    .page-title i {
+        margin-right: 10px;
+        font-size: 1.2em;
+    }
+
+        
+    </style>
+    <div class="app-menu navbar-menu custom-navbar-menu">
+        <!-- LOGO -->
+        <div class="navbar-brand-box" style="background-color: #1F1F1F;">
+            <!-- Dark Logo-->
+            <a href="{{ path('app_back') }}" class="logo logo-dark">
+                <span class="logo-sm">
+                    <img src="/img/bg-img/Key-W-logoSmall.png" alt="" height="40">
+                </span>
+                <span class="logo-lg">
+                    <img src="/img/bg-img/Key-W-logo.png" alt="" height="45">
+                </span>
+            </a>
+            <!-- Light Logo-->
+            <a href="{{ path('app_back') }}" class="logo logo-light">
+                <span class="logo-sm">
+                    <img src="/img/bg-img/Key-W-logoSmall.png" alt="" height="40">
+                </span>
+                <span class="logo-lg">
+                    <img src="/img/bg-img/Key-W-logo.png" alt="" height="45">
+                </span>
+            </a>
+            <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                <i class="ri-record-circle-line"></i>
+            </button>
+        </div>
+        <div id="scrollbar">
+            <div class="container-fluid">
+                <div id="two-column-menu"></div>
+                <ul class="navbar-nav" id="navbar-nav">
+                  <li class="nav-item">
+                     <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                         <i class="ri-user-settings-line"></i> <span data-key="t-dashboards">Users management</span>
+                      </a>
+                        <div class="collapse menu-dropdown" id="sidebarDashboards">
+                          <ul class="nav nav-sm flex-column">
+                             <li class="nav-item">
+                                  <a href="{{ path('app_back') }}" class="nav-link" data-key="t-crm"> Our users </a>
+                             </li>
+                           </ul>
+                          </div>
+                  </li>
+                </ul>
+
+                 <ul class="navbar-nav" id="navbar-nav">
+                  <li class="nav-item">
+                     <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                            <i class="fas fa-bug"></i> <span data-key="t-dashboards">Cyber incidents</span>
+                      </a>
+                        <div class="collapse menu-dropdown" id="sidebarDashboards">
+                          <ul class="nav nav-sm flex-column">
+                             <li class="nav-item">
+                                  <a href="{{ path('admin_cyber_risk_list') }}" class="nav-link" data-key="t-crm">  View Incidents </a>
+                             </li>
+                           </ul>
+                          </div>
+                  </li>
+                </ul>
+
+
+               
+            </div>
+            
+            <!-- Sidebar -->
+        </div>
+        <div class="sidebar-background"></div>
+    </div>
+    <!-- Left Sidebar End -->
+    <!-- Vertical Overlay-->
+    <div class="vertical-overlay"></div>
+    {% endblock %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    {% block body %}
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- Display list of users -->
+               <div class="title-container">
+                <h1 class="page-title">
+                     List Of Users
+                </h1>
+            </div>
+                <div class="row mb-3">
+                    <div class="col-sm-12 text-end">
+<button class="btn btn-success" onclick="window.location.href='{{ path('app_user_add') }}'">
+    <i class="mdi mdi-plus"></i> Add New User
+</button>
+
+                    </div>
+                </div>
+                <table class="table table-striped" style="margin:20px">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.name }} {{ user.lastName }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.phone }}</td>
+                                <td>
+                                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning btn-sm"><i class="mdi mdi-pencil"></i> Edit</a>
+    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUserModal" data-user-id="{{ user.id }}"><i class="mdi mdi-delete"></i> Delete</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">No users found</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+<!-- Modal for Delete Confirmation -->
+<div class="modal fade zoomIn" id="deleteUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                    <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                        <h4>Are you sure?</h4>
+                        <p class="text-muted mx-4 mb-0">Do you really want to delete this user?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Yes, delete!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Modal -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteButton = document.getElementById('confirmDeleteButton');
+    const modal = document.getElementById('deleteUserModal');
+    let userId = null;
+
+    // Attach event listener to the delete buttons to get user ID
+    document.querySelectorAll('[data-bs-toggle="modal"][data-user-id]').forEach(button => {
+        button.addEventListener('click', function () {
+            userId = this.getAttribute('data-user-id');
+        });
+    });
+
+    // Attach event listener to the confirm delete button
+    deleteButton.addEventListener('click', function () {
+        if (userId) {
+            // Redirect to delete URL
+            window.location.href = '{{ path('app_user_delete', {'id': 'USER_ID'}) }}'.replace('USER_ID', userId);
+        }
+    });
+});
+</script>
+
+
+    {% endblock %}
+    {% block footer %}
+        <footer class="footer">
+        </footer>
+    </div>
+    <!-- end main content-->
+    {% endblock %}
+
+    <!--start back-to-top-->
+    <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+
+    <!-- Modal for Adding New User -->
+  
+
+    <!--preloader-->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Settings -->
+    {% block javascript %}
+    <!-- JAVASCRIPT -->
+    <script src="/Backend/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/Backend/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="/Backend/assets/libs/node-waves/waves.min.js"></script>
+    <script src="/Backend/assets/libs/feather-icons/feather.min.js"></script>
+    <script src="/Backend/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="/Backend/assets/js/plugins.js"></script>
+    <!-- apexcharts -->
+    <script src="/Backend/assets/libs/apexcharts/apexcharts.min.js"></script>
+    <!-- Vector map-->
+    <script src="/Backend/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+    <script src="/Backend/assets/libs/jsvectormap/maps/world-merc.js"></script>
+    <!--Swiper slider js-->
+    <script src="/Backend/assets/libs/swiper/swiper-bundle.min.js"></script>
+    <!-- Dashboard init -->
+    <script src="/Backend/assets/js/pages/dashboard-ecommerce.init.js"></script>
+    <!-- App js -->
+    <script src="/Backend/assets/js/app.js"></script>
+    {% endblock %}
+</body>
+</html>

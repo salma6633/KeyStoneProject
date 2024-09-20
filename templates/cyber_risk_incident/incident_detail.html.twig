@@ -1,0 +1,474 @@
+{% extends 'home/back.html.twig' %}
+
+{% block body %}
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="title-container">
+                <h1 class="page-title">
+                    Détails sur  l'Incident #{{ incident.id }}
+                </h1>
+            </div>
+
+            <section style="margin-top: 50px; margin-bottom: 60px;">
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4 shadow-sm incident-card">
+                                {# <div class="card-header text-white">
+                                    <h5 class="card-title mb-0">
+                                        <i class="fas fa-shield-alt"></i> Incident #{{ incident.id }}
+                                    </h5>
+                                </div> #}
+                                <div class="card-body">
+                                    <div class="questions-section">
+<div class="header-container">
+    <h3>Questions</h3>
+    <h3 class="spaced">Attribuez des notes(/10)</h3>
+</div>
+
+
+                                        <form action="{{ path('incident_detail', { 'id': incident.id }) }}" method="post" enctype="multipart/form-data">
+
+                                       <div class="question-item">
+                                       <p><strong>1. Avez-vous documenté et publié vos politiques et normes de sécurité des informations ?</strong></p>
+                                <div class="form-container">
+                                             {{ form_row(form.policiesDocumentedScore) }}
+                                             </div>
+                                           </div>
+                                     <p><strong><span class="response-label">Réponse :</strong> {{ incident.policiesDocumented|default('NULL') }}</p>
+                                {% if incident.policiesDocuments %}
+                                - <a href="{{ asset('uploads/' ~ incident.policiesDocuments) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                              {% endif %}
+
+
+                                        <div class="question-item">
+                                            <p><strong>2. Date de la dernière révision effectuée de l'efficacité de vos politiques et normes de sécurité des informations:</strong> 
+                                              <div class="form-container">
+                                             {{ form_row(form.policiesReviewDateScore) }}
+                                             </div></div>
+                                             <p><strong><span class="response-label">Réponse :</strong>{{ incident.policiesReviewDate|date('Y-m-d')|default('NULL') }}</p>
+                                            
+
+                                        </div>
+                                        <div class="question-item">
+                                            <p><strong>3. Avez-vous mis en place un processus pour gérer les exceptions liées à vos normes et politiques de sécurité des informations ?</strong></p>
+                                            <div class="form-container">
+
+                                          {{ form_row(form.securityExceptionsProcessScore) }}
+                                        </div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.securityExceptionsProcess|default('NULL') }}</p>
+                                                                                       
+                                        <div class="question-item">
+                                            <p><strong>4. Disposez-vous d'une personne ou d'une équipe responsable du maintien de la sécurité des informations et du contrôle de tous les systèmes et fonctions utilisés pour stocker, traiter et/ou transmettre les informations de la banque ?</strong></p>
+                                                       <div class="form-container">
+
+                                                    {{ form_row(form.anySecurityTeamScore) }}
+</div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{  incident.AnySecurityTeam|default('NULL') }} <br>
+                                             
+                                             {% if incident.securityTeam %}
+                                            <p><strong>quel est leur titre ou leur poste ? </strong></p>
+                                            {{ incident.securityTeam|default('') }}</p>
+                                            {% endif %}
+                                             
+                                            {% if incident.securityTeamExigence %}
+                                            <p><strong>Veuillez fournir les exigences du profil du poste de l'équipe </strong></p>
+                                            {{ incident.securityTeamExigence|default('') }}</p>
+                                            {% endif %}
+                                            {% if incident.securityTeamDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.security_team_documentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                        <div class="question-item">
+                                            <p><strong>5. Conservez-vous le contrôle des fonctions de sécurité de l'information suivantes au sein de votre organisation ?</strong></p>
+                                            <ul>
+                                                <li>Gestion du pare-feu</li>
+                                                <li>Gestion de la configuration de la sécurité</li>
+                                                <li>Gestion des correctifs</li>
+                                                <li>Administration de la sécurité de l'information (ISA)</li>
+                                            </ul>     
+                                             <div class="form-container">
+
+                                             {{ form_row(form.informationSecurityControlsScore) }}
+                                             </div></div>
+
+                                            <p><strong><span class="response-label">Réponse :</strong></p>
+                                            <ul>
+                                                {% for control in incident.informationSecurityControls %}
+                                                    <li>{{ control }}</li>
+                                                {% else %}
+                                                    <li>Pas de données disponibles</li>
+                                                {% endfor %}
+                                            </ul>
+                                            {% if incident.informationSecurityControlsDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.informationSecurityControlsDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                        <div class="question-item">
+                                            <p><strong>6. Suivez-vous un processus d'auto-évaluation des contrôles périodiques documenté qui évalue les opérations commerciales impliquant des informations de la banque pour la conformité à vos politiques et normes ?</strong></p>
+                                               <div class="form-container">
+                                         {{ form_row(form.selfAssessmentProcessScore) }}
+</div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.selfAssessmentProcess|default('NULL') }}</p>
+                                         {% if incident.selfAssessmentProcessDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.selfAssessmentProcessDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                        
+                                        <div class="question-item">
+                                            <p><strong>7. Comment gérez-vous les problèmes détectés lors de votre auto-évaluation des contrôles ? Attribuez-vous un niveau de risque aux problèmes identifiés ?</strong></p>
+                                                                                            <div class="form-container">
+
+                                               {{ form_row(form.issueManagementScore) }}
+ </div> </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.issueManagement|default('NULL') }}</p>
+                                            {% if incident.issueManagementDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.issueManagementDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                       
+                                        <div class="question-item">
+                                            <p><strong>8. Vos contrôles et vos processus de sécurité des informations sont-ils évalués par un vérificateur indépendant ?</strong></p>
+                                                                                           <div class="form-container">
+
+                                             {{ form_row(form.independentAuditScore) }}
+</div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.independentAudit|default('NULL') }}</p>
+                                            {% if incident.independentAuditDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.independentAuditDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                        
+                                        <div class="question-item">
+                                            <p><strong>9. Avez-vous un système de classification des informations documenté qui comprend une description de chaque niveau de classification ?</strong></p>
+                                                                                          <div class="form-container">
+
+                                             {{ form_row(form.informationClassificationSystemScore) }}
+ </div> </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.informationClassificationSystem|default('NULL') }}</p>
+                                            {% if incident.informationClassificationSystemDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.informationClassificationSystemDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                       
+                                        <div class="question-item">
+                                            <p><strong>10. Avez-vous une politique documentée qui interdit explicitement l'utilisation de supports amovibles ? Si des exceptions sont autorisées, une telle utilisation a-t-elle un processus d'approbation de la direction documenté qui inclut la justification commerciale exigeant l'utilisation de supports amovibles ?</strong></p>
+                                                                                       <div class="form-container">
+
+                                          {{ form_row(form.removableMediaPolicyScore) }}
+ </div> </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.removableMediaPolicy|default('NULL') }}</p>
+                                            {% if incident.removableMediaPolicyDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.removableMediaPolicyDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                       
+                                        <div class="question-item">
+                                            <p><strong>11. Est-ce que vos normes et directives relatives à la gestion des incidents liés à la sécurité sont documentées ?</strong></p>
+                                                                                            <div class="form-container">
+
+                                              {{ form_row(form.incidentManagementStandardsScore) }}
+</div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.incidentManagementStandards|default('NULL') }}</p>
+                                            {% if incident.incidentManagementStandardsDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.incidentManagementStandardsDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                        
+                                        <div class="question-item">
+                                            <p><strong>12. Surveillez-vous les incidents liés à la sécurité 24 heures sur 24 et 7 jours sur 7 ?</strong></p>
+                                                                                         <div class="form-container">
+
+                                           {{ form_row(form.incidentMonitoringScore) }}
+ </div> </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.incidentMonitoring|default('NULL') }}</p>
+                                       
+
+                                        
+                                        <div class="question-item">
+                                            <p><strong>13. Comment les tendances des incidents liés à la sécurité sont-elles évaluées ?</strong></p>
+                                                                                           <div class="form-container">
+
+                                              {{ form_row(form.incidentTrendsEvaluationScore) }}
+                                              </div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.incidentTrendsEvaluation|default('NULL') }}</p>
+                                            {% if incident.incidentTrendsEvaluationDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.incidentTrendsEvaluationDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                        
+                                        <div class="question-item">
+                                            <p><strong>14. Disposez-vous d'un programme documenté de formation et de sensibilisation à la sécurité de l'information ?</strong></p>
+                                                                                          <div class="form-container">
+
+                                            {{ form_row(form.securityTrainingProgramScore) }}
+                                            </div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.securityTrainingProgram|default('NULL') }}</p>
+                                            {% if incident.securityTrainingProgramDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.securityTrainingProgramDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                        
+                                        <div class="question-item">
+                                            <p><strong>15. Quelles méthodes utilisez-vous pour dispenser la formation et comment mesurez-vous l'efficacité de la formation ?</strong></p>
+                                                                                           <div class="form-container">
+
+                                            {{ form_row(form.trainingMethodsScore) }}
+                                             </div> </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.trainingMethods|default('NULL') }}</p>
+                                       
+                                        <div class="question-item">
+                                            <p><strong>16. Pouvez-vous fournir une liste des sujets abordés dans votre programme de formation à la sécurité de l'information ?</strong></p>
+                                                                                         <div class="form-container">
+
+                                           {{ form_row(form.trainingTopicsScore) }} </div> </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.trainingTopics|default('NULL') }}</p>
+                                       
+                                        <div class="question-item">
+                                            <p><strong>17. De quelle façon les inspections de sécurité et de prévention des incendies visant à surveiller l’efficacité et l’application des programmes de sécurité physique et de prévention des incendies sont-elles menées dans toutes les installations ?</strong></p>
+                                                                                         <div class="form-container">
+
+                                            {{ form_row(form.securityInspectionsScore) }}   </div>   </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.securityInspections|default('NULL') }}</p>
+                                            {% if incident.securityInspectionsDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.securityInspectionsDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                     
+                                        <div class="question-item">
+                                            <p><strong>18. La langue de votre contrat avec votre sous-traitant couvre-t-elle toutes les dispositions de sécurité ?</strong></p>
+                                                                                         <div class="form-container">
+
+                                            {{ form_row(form.contractSecurityProvisionsScore) }}
+   </div>   </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.contractSecurityProvisions|default('NULL') }}</p>
+                                            {% if incident.contractSecurityProvisionsDocumentation %}
+                                                - <a href="{{ asset('uploads/' ~ incident.contractSecurityProvisionsDocumentation) }}" target="_blank"><strong>Voir la preuve</strong></a>
+                                            {% endif %}
+                                     
+                                        <div class="question-item">
+                                            <p><strong>19. Souhaitez-vous que les sous-traitants nécessitent des évaluations de la sécurité des informations avant et après contrat ?</strong></p>
+                                                                                            <div class="form-container">
+
+                                             {{ form_row(form.subcontractorSecurityEvaluationScore) }}
+</div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.subcontractorSecurityEvaluation|default('NULL') }}</p>
+                                        
+                                        <div class="question-item">
+                                            <p><strong>20. Existe-t-il un processus d'évaluation de la sécurité de l'information des sous-traitants approuvé par la direction ?</strong></p>
+                                                                                          <div class="form-container">
+
+                                            {{ form_row(form.subcontractorEvaluationProcessScore) }}
+</div></div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.subcontractorEvaluationProcess|default('NULL') }}</p>
+                                        
+                                        <div class="question-item">
+                                            <p><strong>21. Les évaluations des risques liés aux SI sont-elles effectuées à l'aide d'un questionnaire d'évaluation des SI ou d'un outil équivalent ?</strong></p>
+                                                                                            <div class="form-container">
+
+                                             {{ form_row(form.riskAssessmentQuestionnaireScore) }} </div> </div>
+                                            <p><strong><span class="response-label">Réponse :</strong> {{ incident.riskAssessmentQuestionnaire|default('NULL') }}</p>
+                                            <div class="form-group">
+                                                {{ form_rest(form) }}
+                                            </div>
+                                            <div class="form-group">
+
+<div class="global-score-container">
+    <div class="global-score">
+        <h3>Note Globale </h3>
+        <p>{{ incident.globalScore }}/10</p>
+    </div>
+</div>
+
+
+<div class="button-container">
+    <button type="submit" class="btn btn-custom">Enregistrer</button>
+</div>
+
+                                            </div>
+                                            {{ form_end(form) }}
+                                        </form>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+<style>
+ 
+ .global-score-container {
+    display: flex;
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Centers the content vertically */
+    padding: 10px;
+    border: 5px solid #ddd; /* Light border around the container */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    max-width: 300px; /* Limit the width */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+.global-score {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+}
+
+.global-score h3 {
+    margin: 0;
+    font-size: 1.2rem; /* Adjust font size if needed */
+}
+
+.global-score p {
+    font-size:2rem; /* Adjust font size if needed */
+    font-weight: bold; /* Make the score stand out */
+    color: #333; /* Text color */
+}
+
+ .button-container {
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center the button horizontally */
+    margin-top: 20px; /* Space above the button container */
+}
+
+.btn-custom {
+    background-color: #FF0000; /* Red background color */
+    border-color: #FF0000; /* Red border color */
+    color: #FFFFFF; /* White text color */
+    padding: 15px 30px; /* Increase button size */
+    font-size: 1.2em; /* Larger text */
+    border-radius: 12px; /* Rounded corners */
+    border: none; /* Remove default border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.btn-custom:hover {
+    background-color: #cc0000; /* Darker red on hover */
+    border-color: #cc0000; /* Darker red border on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+.btn-custom:active {
+    background-color: #a30000; /* Even darker red when button is pressed */
+    transform: scale(0.95); /* Slightly shrink the button when pressed */
+}
+
+/* Optional: Add a subtle shadow effect */
+.btn-custom {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.response-label {
+    color: green; /* Change la couleur du texte en vert */
+    font-weight: bold; /* Met le texte en gras */
+    font-size: 16px; /* Ajuste la taille de la police */
+    text-transform: uppercase; /* Met le texte en majuscules */
+    margin-right: 5px; /* Ajoute un espace à droite du texte */
+    background-color: #f0f0f0; /* Ajoute une couleur de fond légère */
+    padding: 2px 4px; /* Ajoute du padding autour du texte */
+    border-radius: 3px; /* Ajoute des coins arrondis */
+    border: 1px solid green; /* Ajoute une bordure verte */
+}
+
+            
+            
+.title-container {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.page-title {
+    font-size: 3em;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, #FF0000 0%, #000000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    animation: fadeIn 1.5s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+.page-title i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.card-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #FF0000;
+}
+
+.card-body {
+    background-color: #f8f9fa;
+    color: black;
+}
+
+.card-body p {
+    background-color: #f8f9fa;
+    color: black;
+}
+
+.card-body a {
+    color: #FF0000; /* Change link color to red */
+}
+
+.questions-section {
+    margin-top: 20px;
+}
+
+.question-item {
+    display: flex;
+    align-items: center; /* Align question and form field vertically */
+    margin-bottom: 20px;
+}
+
+.question-item p {
+    margin: 0;
+    flex: 1; /* Allows the question text to take up available space */
+}
+
+.form-container {
+    margin-right: 240px; /* Space between question and form field */
+    padding-left: 50px
+    
+}
+
+.form-container .form-control {
+    min-width: 30px; 
+        border-radius: 15px;
+
+}
+
+.header-container {
+    display: flex; /* Enable flexbox */
+    align-items: center; /* Align items vertically in the center */
+    margin-bottom: 20px; /* Space below the headers */
+    margin-left: 80px;
+
+}
+.header-container h3 {
+    font-weight: bold;
+    font-size: 2em;
+     color:#1c1717;
+    }
+
+.header-container .spaced {
+    margin-left: 450px; /* Adds 20px space to the left of the second header */
+}
+
+
+.container {
+    max-width: 1200px;
+}
+</style>
+        </div>
+    </div>
+</div>
+{% endblock %}

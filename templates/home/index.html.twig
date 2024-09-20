@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+   {% block title %}<title>KeyStone</title>{% endblock %}
+     {% block StyleSheets %}
+
+    <!-- Favicon -->
+    <link rel="icon" href="/img/bg-img/logoBlack.png">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Responsive Stylesheet -->
+    <link rel="stylesheet" href="/css/responsive.css">
+    {% endblock %}
+
+
+</head>
+
+<body class="light-version">
+    <!-- Preloader -->
+         {% block preloader %}
+
+    <div id="preloader" >
+        <div class="preload-content">
+            <div id="loader-load"></div>
+        </div>
+    </div>
+    
+<style>
+/* Style for preloader */
+#preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    background: #000; /* Black background */
+    background: -webkit-linear-gradient(to right, #000, #ff0000); /* Black to red gradient */
+    background: -o-linear-gradient(to right, #000, #ff0000); /* Black to red gradient */
+    background: linear-gradient(to right, #000, #ff0000); /* Black to red gradient */
+}
+
+.preload-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -35px;
+    margin-left: -35px;
+    z-index: 100;
+}
+
+#loader-load {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid transparent; /* Adjust border width and style */
+    border-top-color: #fff; /* White color for the spinning part */
+    animation: inforotate 2400ms linear infinite; /* Rotation animation */
+    z-index: 999;
+}
+
+#loader-load:before {
+    content: "";
+    position: absolute;
+    top: 7.5px;
+    left: 7.5px;
+    right: 7.5px;
+    bottom: 7.5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff; /* White color for the spinning part */
+    animation: inforotate 2700ms linear infinite;
+}
+
+#loader-load:after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff; /* White color for the spinning part */
+    animation: inforotate 1800ms linear infinite;
+}
+
+/* Spin animation */
+@keyframes inforotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+</style>
+
+
+
+
+
+        {% endblock %}
+    
+
+     {% block header %}
+
+    <!-- ##### Header Area Start ##### -->
+    <nav class="navbar navbar-expand-lg navbar-white fixed-top" id="banner">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="{{ path('app_home') }}"><span><img src="/img/bg-img/Key-W-logo.png" alt="logo"style="max-width: 250px;"></span></a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class='nav-link' href="{{ path('app_home') }}">Home</a>
+                       
+                    </li>
+                    {#
+                    <li class="nav-item">
+                        <a class='nav-link' href='about-us.html'>About Us</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class='nav-link' href='services.html'>Services</a>
+                    </li> #}
+                    <li class="nav-item">
+                        <a class='nav-link' href="{{ path('client_cyber_risk_list') }}">Cyber risk incidents</a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class='nav-link' href='contact-us.html'>Contact</a>
+                    </li>
+                     {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-toggle="dropdown">
+                            Welcome, {{ app.user.name }} {{ app.user.lastName }}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('app_profile') }}">My Account</a>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="lh-55px"><a href="{{ path('app_login') }}" class="btn login-btn ml-50">Login!</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        {% endblock %}
+
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Welcome Area Start ##### -->
+    {% block body %}
+  
+    <section class="hero-section ai2 relative" id="home">           
+
+       <div class="overlay"></div>
+        <!-- Hero Content -->
+        <div class="hero-section-content">
+<video class="background-video" autoplay muted loop playsinline>     
+   <source src="/css/video/cyberStock.mp4" type="video/mp4">
+    </video> 
+            
+            <div class="container ">
+                <div class="row ">
+                    <!-- Welcome Content -->
+                    <div class="col-12 col-lg-6 col-md-12">
+                        <div class="welcome-content text-left">
+                            <div class="promo-section">
+                                <h3 class="special-head redd"> WELCOME TO</h3>
+                            </div>
+                            <h1 class="bold wow fadeInUp w-text" data-wow-delay="0.2s" style="margin-bottom: 80px;">Cyber Risk Data Collection <span class="redd">and Analysis Application </span></h1>
+{#                             <p class="wow fadeInUp g-text" data-wow-delay="0.3s">Lorem ipsum dolor sit amet, adipisicing elit. Quod corrupti laborum, quasi? Dolor sapiente amet optio harum dolores, voluptate, tempora dolorem fugiat fuga autem .</p>
+ #}                            <div class="info-btn-group fadeInUp" data-wow-delay="0.4s">
+                                <a href="#" class="btn info-btn mr-3">contact us</a>
+                                <a href="{{ path('app_cyber_risk') }}" class="btn info-btn"> Submit data </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Welcome Area End ##### -->
+
+  
+    <div class="clearfix"></div>
+
+
+   {#  <section class="about-us-area section-padding-70-70">
+        
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-3 col-md-12 ">
+                   
+                    <div class="col-xs-12">
+                        <div class="article special">
+                            <img src="/img/icons/n3.png" class="mb-10" alt="">
+                            <h3 class="article__title">Security Solutions</h3> 
+                            <p>Lorem ipsum dolor sit amet, conse ctetur adipi sicing elit</p>               
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="article special">
+                            <img src="/img/icons/n5.png" class="mb-10" alt="">
+                            <h3 class="article__title">Managed IT Services</h3> 
+                            <p>Lorem ipsum dolor sit amet, conse ctetur adipi sicing elit</p>                
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="col-12 col-lg-3 col-md-12">
+                    
+                    <div class="col-xs-12">
+                        <div class="article special mts-50">
+                            </img src="img/icons/n6.png" class="mb-10" alt="">
+                            <h3 class="article__title">Strong Firewalls</h3> 
+                            <p>Lorem ipsum dolor sit amet, conse ctetur adipi sicing elit</p>                
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="article special">
+                            <img src="/img/icons/n7.png" class="mb-10" alt="">
+                            <h3 class="article__title">Cloud Computing</h3> 
+                            <p>Lorem ipsum dolor sit amet, conse ctetur adipi sicing elit</p>               
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-12 col-lg-6 offset-lg-0 col-md-10 offset-md-1">
+                    <div class="who-we-contant mt-s">
+                        <div class="promo-section">
+                            <h3 class="special-head ">Our Core Features!</h3>
+                        </div>
+                        <h4 class="bl-text fadeInUp" data-wow-delay="0.3s">We Are The Trusted Experts We Keep Things Simple</h4>
+                        <p class="fadeInUp" data-wow-delay="0.4s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at dictum risus, non suscipit arcu. Quisque aliquam posuere tortor, sit amet convallis nunc scelerisque in.</p>
+                        <p class="fadeInUp" data-wow-delay="0.5s">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo quo laboriosam, dolorum ducimus aliquam consequuntur!</p>
+                        <a class="btn info-btn green-btn mt-30 fadeInUp" data-wow-delay="0.6s" href="#">Read More</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+   
+   
+    <!-- ##### Our Services Area Start ##### -->
+   
+    <!-- ##### FAQ & Timeline Area Start ##### -->
+    
+    <!-- ##### FAQ & Timeline Area End ##### -->
+
+    <!-- ##### pricing Area start ##### -->
+    
+    <!-- ##### pricing Area End ##### -->
+
+    
+
+   <div class="footer-bg">
+        <!-- ##### Testimonial Area Start ##### -->
+        <section class="clients_testimonials_area bg-img section-padding-100-0" id="test">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading text-center">
+                            <span>What Clients Say</span>
+                            <h2 class="d-blue bold bl-text wow fadeInUp" data-wow-delay="0.3s">Loved By Our Clients</h2>
+                            <p class="wow fadeInUp" data-wow-delay="0.4s">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis accumsan nisi Ut ut felis congue nisl hendrerit commodo. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cotainer-fluid">
+                <div class="row justify-content-center wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="col-12 col-md-10 col-xs-10 offset-xs-1">
+                        <div class="client_slides owl-carousel">
+
+                            <!-- Single Testimonial -->
+                            <div class="single-testimonial text-center">
+                                <!-- Testimonial Image -->
+                                <div class="testimonial_image">
+                                    <img src="/img/test-img/1.jpg" alt="">
+                                </div>
+                                <!-- Testimonial Feedback Text -->
+                                <div class="testimonial-description">
+                                    <div class="testimonial_text">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis magni, quisquam, accusantium dolores atque, doloribus odit minus maiores sunt mollitia consequatur, soluta quasi.</p>
+                                    </div>
+
+                                    <!-- Admin Text -->
+                                    <div class="admin_text">
+                                        <h5>Sunny Khan</h5>
+                                        <p>Head of Design, Company CEO</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Single Testimonial -->
+                            <div class="single-testimonial text-center">
+                                <!-- Testimonial Image -->
+                                <div class="testimonial_image">
+                                    <img src="/img/test-img/2.jpg" alt="">
+                                </div>
+                                <!-- Testimonial Feedback Text  -->
+                                <div class="testimonial-description">
+                                    <div class="testimonial_text">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error nostrum adipisci porro quisquam. Rem, earum, tenetur? Architecto et, earum repudiandae.</p>
+                                    </div>
+
+                                    <!-- Admin Text -->
+                                    <div class="admin_text">
+                                        <h5>Ajoy Das</h5>
+                                        <p>Head of Idea, Company CEO</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Single Testimonial -->
+                            <div class="single-testimonial text-center">
+                                <!-- Testimonial Image -->
+                                <div class="testimonial_image">
+                                    <img src="/img/test-img/3.jpg" alt="">
+                                </div>
+                                <!-- Testimonial Feedback Text  -->
+                                <div class="testimonial-description">
+                                    <div class="testimonial_text">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et delectus, nam repudiandae repellat id placeat molestias consequuntur, laudantium dolorem nesciunt sit.</p>
+                                    </div>
+                                    <!-- Admin Text -->
+                                    <div class="admin_text">
+                                        <h5>Jebin Khan</h5>
+                                        <p>Head of Marketing, Company CEO</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ##### Testimonial Area End ##### -->
+        #} 
+        <!-- ##### Footer Area Start ##### --> {% endblock %} 
+        {% block footer %}
+
+        <footer class="footer-area ">
+
+            <!-- ##### Contact Area Start ##### -->
+            
+            <!-- ##### Contact Area End ##### -->
+           
+            <div class="footer-content-area spec">
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-12 col-lg-4 col-md-6">
+                            <div class="footer-copywrite-info">
+                                <!-- Copywrite -->
+                                <div class="copywrite_text fadeInUp" data-wow-delay="0.2s">
+                                    <div >
+                                        <a href="#"><img src="/img/bg-img/Key-W-logo.png" alt="logo"width="200" height="100" ></a>
+                                    </div>
+                                    <p>Keystone Groupe is a cybersecurity and cyberdefense consulting office based in Tunis and Algiers, with a team of experts in different security disciplines, ranging from consulting to Ethical Hacking to R&D. Keystone works in the African region to support governments in implementing their cybersecurity programs and in setting up a dedicated structure.</p>
+                                </div>
+                                <!-- Social Icon -->
+                                <div class="footer-social-info fadeInUp" data-wow-delay="0.4s">
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                          
+                       
+                        
+
+                        <div class="col-12 col-lg-3 col-md-6 ">
+                            <div class="contact_info_area d-sm-flex justify-content-between">
+                                <!-- Content Info -->
+                                <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.4s">
+                                    <h5>CONTACT US TUNISIA OFFICE</h5>
+                                    <p> 3 Rue de Riadh, MutuelleVille, Tunis</p>
+                                    <p> 00216 71 78 45 46</p>
+                                    <p>contact@keystone.tn</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-lg-3 col-md-6 ">
+                             <div class="contact_info_area d-sm-flex justify-content-between">
+                                <!-- Content Info -->
+                                <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.4s">
+                                    <h5>CONTACT US ALGERIA OFFICE</h5>
+                                    <p>  Centre des Affaires Mohammadia Mall N°1272, ALGER</p>
+                                    <p> +213 (0) 23 80 47 57</p>
+                                    <p>info@keystonegroup.dz</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                    
+            </div>
+        </footer>
+        <!-- ##### Footer Area End ##### -->
+    </div>
+        {% endblock %}
+
+     {% block javascript %}
+
+    <!-- ########## All JS ########## -->
+    <!-- jQuery js -->
+    <script src="/js/jquery.min.js"></script>
+    <!-- Popper js -->
+    <script src="/js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/js/plugins.js"></script>
+    <!-- script js -->
+    <script src="/js/script.js"></script>
+        {% endblock %}
+
+</body>
+
+
+<!-- Mirrored from skerlty.netlify.app/index-demo-4 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 09 Jul 2024 13:58:33 GMT -->
+</html>

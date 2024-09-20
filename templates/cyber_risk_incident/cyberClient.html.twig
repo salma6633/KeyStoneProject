@@ -1,0 +1,185 @@
+{% extends 'home/index.html.twig' %}
+
+{% block body %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet"> 
+
+<div class="welcome-banner text-white text-center d-flex align-items-center justify-content-center">
+    <h1 class="mb-0">Voici nos incidents cyber</h1>
+</div>
+
+<section style="margin-top: 50px; margin-bottom: 60px;">
+    <div class="container mt-5">
+   <div class="row mb-4">
+      <div class="col-md-12 text-end"> <!-- Change text-center to text-end -->
+        <input type="text" id="searchInput" class="form-control search-input" placeholder="Rechercher un incident par ID" onkeyup="searchIncident()" />
+    </div>
+</div>
+
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            {% for incident in incidents %}
+                <div class="col-md-6">
+                    <div class="card mb-4 shadow-sm incident-card">
+                        <div class="card-header text-black bold" data-bs-toggle="collapse" data-bs-target="#incident-{{ incident.id }}" aria-expanded="false" aria-controls="incident-{{ incident.id }}">
+                         <div class="d-flex justify-content-between align-items-center">
+
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-shield-alt"></i> Incident #{{ incident.id }}
+                            </h5>
+                            <span class="incident-score" >Note: {{ incident.globalScore }}/10</span>
+                           </div>
+                        </div>
+                        <div id="incident-{{ incident.id }}" class="collapse">
+                            <div class="card-body">
+                                <p><i class="fas fa-calendar-alt"></i> <strong>Date :</strong> {{ incident.policiesReviewDate|date('Y-m-d')|default('NULL') }}</p>
+                                
+                                <p><i class="fas fa-file-alt"></i> <strong>Politiques et Normes de Sécurité des Informations :</strong> {{ incident.policiesDocumented|default('NULL') }}{% if incident.policiesDocuments %} - <a href="{{ asset('uploads/' ~ incident.policiesDocuments) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-exclamation-triangle"></i> <strong>Processus d'exceptions de sécurité :</strong> {{ incident.securityExceptionsProcess|default('NULL') }}</p>
+                                
+                                <p><i class="fas fa-users"></i> <strong>Équipe de sécurité :</strong> {{ incident.anySecurityTeam|default('NULL') }}</p>
+                                <p><i class="fas fa-user-tie"></i> <strong>Les postes de l'équipe de sécurité :</strong> {{ incident.securityTeam|default('NULL') }}</p>
+                                <p><i class="fas fa-users"></i> <strong>Exigence de l'équipe de sécurité :</strong> {{ incident.securityTeamExigence|default('NULL') }}{% if incident.securityTeamDocumentation %} - <a href="{{ asset('uploads/' ~ incident.securityTeamDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-lock"></i> <strong>Contrôles de sécurité :</strong></p>
+                                <ul>
+                                    {% for control in incident.informationSecurityControls %}
+                                        <li><i class="fas fa-check-circle"></i> {{ control|default('NULL') }}</li>
+                                    {% else %}
+                                        <li><i class="fas fa-times-circle"></i> NULL</li>
+                                    {% endfor %}
+                                </ul>
+                                
+                                <p><i class="fas fa-check-double"></i> <strong>Processus d'auto-évaluation :</strong> {{ incident.selfAssessmentProcess|default('NULL') }}{% if incident.selfAssessmentProcessDocumentation %} - <a href="{{ asset('uploads/' ~ incident.selfAssessmentProcessDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                <p><i class="fas fa-tools"></i> <strong>Gestion des Problèmes Détectés :</strong> {{ incident.issueManagement|default('NULL') }}{% if incident.issueManagementDocumentation %} - <a href="{{ asset('uploads/' ~ incident.issueManagementDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-file-contract"></i> <strong>Audit indépendant :</strong> {{ incident.independentAudit|default('NULL') }}{% if incident.independentAuditDocumentation %} - <a href="{{ asset('uploads/' ~ incident.independentAuditDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-tag"></i> <strong>Système de classification de l'information :</strong> {{ incident.informationClassificationSystem|default('NULL') }}{% if incident.informationClassificationSystemDocumentation %} - <a href="{{ asset('uploads/' ~ incident.informationClassificationSystemDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-hdd"></i> <strong>Politique sur les supports amovibles :</strong> {{ incident.removableMediaPolicy|default('NULL') }}{% if incident.removableMediaPolicyDocumentation %} - <a href="{{ asset('uploads/' ~ incident.removableMediaPolicyDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-cogs"></i> <strong>Normes de gestion des incidents :</strong> {{ incident.incidentManagementStandards|default('NULL') }}{% if incident.incidentManagementStandardsDocumentation %} - <a href="{{ asset('uploads/' ~ incident.incidentManagementStandardsDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-eye"></i> <strong>Surveillance des incidents :</strong> {{ incident.incidentMonitoring|default('NULL') }}</p>
+                                <p><i class="fas fa-chart-line"></i> <strong>Évaluation des tendances des incidents :</strong> {{ incident.incidentTrendsEvaluation|default('NULL') }}{% if incident.incidentTrendsEvaluationDocumentation %} - <a href="{{ asset('uploads/' ~ incident.incidentTrendsEvaluationDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-chalkboard-teacher"></i> <strong>Programme de Formation à la Sécurité :</strong> {{ incident.securityTrainingProgram|default('NULL') }}{% if incident.securityTrainingProgramDocumentation %} - <a href="{{ asset('uploads/' ~ incident.securityTrainingProgramDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-book"></i> <strong>Méthodes de Formation :</strong> {{ incident.trainingMethods|default('NULL') }}</p>
+                                <p><i class="fas fa-list"></i> <strong>Sujets de Formation :</strong> {{ incident.trainingTopics|default('NULL') }}</p>
+                                
+                                <p><i class="fas fa-search"></i> <strong>Inspections de Sécurité :</strong> {{ incident.securityInspections|default('NULL') }}{% if incident.securityInspectionsDocumentation %} - <a href="{{ asset('uploads/' ~ incident.securityInspectionsDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-file-signature"></i> <strong>Dispositions de Sécurité des Contrats :</strong> {{ incident.contractSecurityProvisions|raw|default('NULL') }}{% if incident.contractSecurityProvisionsDocumentation %} - <a href="{{ asset('uploads/' ~ incident.contractSecurityProvisionsDocumentation) }}" target="_blank">Voir le document</a>{% endif %}</p>
+                                
+                                <p><i class="fas fa-user-shield"></i> <strong>Évaluation de la Sécurité des Sous-traitants :</strong> {{ incident.subcontractorSecurityEvaluation|default('NULL') }}</p>
+                                <p><i class="fas fa-check-circle"></i> <strong>Processus d'Évaluation des Sous-traitants :</strong> {{ incident.subcontractorEvaluationProcess|default('NULL') }}</p>
+                                
+                                <p><i class="fas fa-question-circle"></i> <strong>Questionnaire d'Évaluation des Risques :</strong> {{ incident.riskAssessmentQuestionnaire|default('NULL') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-12 text-center">
+                    <p>Aucun incident disponible pour le moment.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+.search-input {
+        max-width: 300px; /* Largeur maximale de l'input */
+        margin-right: auto; /* Aligner à droite */
+        margin-left: auto; /* Centrer l'input horizontalement dans la colonne */
+        border: 1px solid #ced4da; /* Couleur de contour par défaut */
+    }
+
+    .search-input:focus {
+        border-color: #FF0000; /* Couleur de contour rouge au focus */
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Légère ombre rouge */
+    }
+    .welcome-banner {
+        position: relative;
+        border-radius: 0px;
+        margin-top: 108px;
+        background-image: url('/img/bg-img/backbg.jpg'); 
+        background-size: cover;
+        background-position: center;
+        color: white;
+        height: 270px;
+    }
+    .welcome-banner::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+    }
+    .welcome-banner h1 {
+        position: relative;
+        z-index: 2;
+    }
+    .card {
+        border-radius: 10px;
+    }
+    .card-header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        cursor: pointer;
+        background-color: #FF0000;
+    }
+    .card-body {
+        background-color: #f8f9fa;
+        color: black;
+    }
+    .card-body p {
+        background-color: #f8f9fa;
+        color: black;
+    }
+    .card-body a {
+        color: #FF0000; /* Change link color to red */
+    }
+    .badge {
+        font-size: 1em;
+        padding: 0.5em 0.75em;
+    }
+    .container {
+        max-width: 1200px;
+    }
+    .incident-card {
+        transition: transform 0.3s ease;
+    }
+    .incident-card .collapse:not(.show) {
+        transform: scale(0.95);
+    }
+    .incident-card .collapse.show {
+        transform: scale(1);
+    }
+</style>
+<script>
+    function searchIncident() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const cards = document.querySelectorAll('.incident-card');
+
+        cards.forEach(card => {
+            const incidentId = card.querySelector('.card-title').textContent.toLowerCase();
+            if (incidentId.includes(`incident #${filter}`)) {
+                card.style.display = ""; 
+            } else {
+                card.style.display = "none"; 
+            }
+        });
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+{% endblock %}

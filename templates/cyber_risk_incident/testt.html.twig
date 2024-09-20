@@ -1,0 +1,198 @@
+{% extends 'home/back.html.twig' %}
+
+{% block body %}
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="title-container">
+                <h1 class="page-title">
+                    Cyber Incidents
+                </h1>
+            </div>
+
+            <div class="table-container">
+                <div class="table-responsive">
+                    <table id="incidentsTable" class="display table table-bordered table-striped custom-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Politiques et Normes de Sécurité des Informations(IS)</th>
+                                <th>Processus d'exceptions de sécurité</th>
+                                <th>Équipe de sécurité</th>
+                                <th>Les postes de l'équipe de sécurité</th>
+                                <th>Contrôles de sécurité</th>
+                                <th>Processus d'auto-évaluation</th>
+                                <th>Gestion des Problèmes Détectés</th>
+                                <th>Audit indépendant</th>
+                                <th>Système de classification de l'information</th>
+                                <th>Politique sur les supports amovibles</th>
+                                <th>Normes de gestion des incidents</th>
+                                <th>Surveillance des incidents</th>
+                                <th>Évaluation des tendances des incidents</th>
+                                <th>Programme de formation à la sécurité</th>
+                                <th>Méthodes de formation</th>
+                                <th>Sujets de formation</th>
+                                <th>Inspections de sécurité</th>
+                                <th>Provisions de sécurité du contrat</th>
+                                <th>Évaluation de la sécurité des sous-traitants</th>
+                                <th>Processus d'évaluation des sous-traitants</th>
+                                <th>Questionnaire d'évaluation des risques</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for incident in incidents %}
+                                <tr>
+                                    <td class="id-column">{{ incident.id }}</td>
+                                    <td>{{ incident.policiesReviewDate|date('Y-m-d') }}</td>
+                                    <td>{{ incident.policiesDocumented }}{% if incident.policiesDocuments %} - <a href="{{ asset('uploads/' ~ incident.policiesDocuments) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.securityExceptionsProcess }}</td>
+                                    <td>{{ incident.anySecurityTeam }}</td>
+                                    <td>{{ incident.securityTeam }}</td>
+
+                                    <td>
+                                        <ul>
+                                            {% for control in incident.informationSecurityControls %}
+                                                <li>{{ control }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td>{{ incident.selfAssessmentProcess }}</td>
+                                    <td>{{ incident.issueManagement }}{% if incident.issueManagementDocumentation %} - <a href="{{ asset('uploads/' ~ incident.issueManagementDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.independentAudit }}{% if incident.independentAuditDocumentation %} - <a href="{{ asset('uploads/' ~ incident.independentAuditDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.informationClassificationSystem }}{% if incident.informationClassificationSystemDocumentation %} - <a href="{{ asset('uploads/' ~ incident.informationClassificationSystemDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.removableMediaPolicy }}{% if incident.removableMediaPolicyDocumentation %} - <a href="{{ asset(incident.removableMediaPolicyDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.incidentManagementStandards }}{% if incident.incidentManagementStandardsDocumentation %} - <a href="{{ asset('uploads/' ~ incident.incidentManagementStandardsDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.incidentMonitoring }}</td>
+                                    <td>{{ incident.incidentTrendsEvaluation }}{% if incident.incidentTrendsEvaluationDocumentation %} - <a href="{{ asset('uploads/' ~ incident.incidentTrendsEvaluationDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.securityTrainingProgram }}{% if incident.securityTrainingProgramDocumentation %} - <a href="{{ asset('uploads/' ~ incident.securityTrainingProgramDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.trainingMethods }}</td>
+                                    <td>{{ incident.trainingTopics }}</td>
+                                    <td>{{ incident.securityInspections }}{% if incident.securityInspectionsDocumentation %} - <a href="{{ asset('uploads/' ~ incident.securityInspectionsDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.contractSecurityProvisions }}{% if incident.contractSecurityProvisionsDocumentation %} - <a href="{{ asset('uploads/' ~ incident.contractSecurityProvisionsDocumentation) }}" target="_blank"><strong>Voir le document</strong></a>{% endif %}</td>
+                                    <td>{{ incident.subcontractorSecurityEvaluation }}</td>
+                                    <td>{{ incident.subcontractorEvaluationProcess }}</td>
+                                    <td>{{ incident.riskAssessmentQuestionnaire }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .title-container {
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    .page-title {
+        font-size: 3em;
+        color: #FFFFFF;
+        background: linear-gradient(135deg, #FF0000 0%, #000000 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        padding: 10px;
+        border-radius: 8px;
+        display: inline-block;
+        animation: fadeIn 1.5s ease-in-out;
+        position: relative;
+        z-index: 1;
+    }
+
+    .page-title i {
+        margin-right: 10px;
+        font-size: 1.2em;
+    }
+
+    .filters-container {
+        margin-bottom: 20px;
+    }
+
+    .filters-container label {
+        font-weight: bold;
+    }
+
+    .table-container {
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow-x: auto; /* Enables horizontal scrolling */
+    }
+
+    .table-responsive {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    table.dataTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Styles pour les en-têtes de tableau */
+    .custom-table thead {
+        background-color: #A30000; /* Rouge pour le fond des en-têtes */
+        font-weight: bold; /* Texte en gras */
+    }
+
+    .custom-table thead th {
+        text-align: center; /* Centre le texte horizontalement dans les en-têtes */
+        vertical-align: middle; /* Centre le texte verticalement dans les en-têtes */
+        border-bottom: 2px solid #FFFFFF; /* Bordure blanche au bas des en-têtes */
+        font-size: 1em; /* Taille de la police pour les en-têtes */
+        padding: 10px; /* Padding pour améliorer l'espacement */
+    }
+
+    .custom-table thead th:hover {
+        background-color: #A30000; /* Changement de couleur au survol */
+    }
+
+    /* Styles pour les lignes du corps du tableau */
+    .custom-table tbody tr:nth-child(even) {
+        background-color: #F4F4F4; /* Couleur de fond pour les lignes paires */
+    }
+
+    .custom-table tbody tr:nth-child(odd) {
+        background-color: #FFFFFF; /* Couleur de fond pour les lignes impaires */
+    }
+
+    .custom-table tbody td {
+        color: #333333; /* Couleur du texte des cellules */
+        padding: 10px; /* Ajoute du padding pour une meilleure lisibilité */
+        border-bottom: 1px solid #DDDDDD; /* Bordure légère en bas des cellules */
+    }
+
+    .custom-table tbody td:hover {
+        background-color: #FFDDDD; /* Couleur de fond au survol des cellules */
+    }
+
+    /* Styles pour la colonne ID */
+    .id-column {
+        background-color: #FF0000;
+        color: #FFFFFF;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    /* Styles pour les badges (si utilisés) */
+    .badge-lg {
+        font-size: 1.2em; /* Augmente la taille de la police */
+        padding: 0.5em 1em; /* Ajuste le padding */
+    }
+
+    /* Styles pour les cellules vides */
+    .custom-table tbody td:empty {
+        background-color: #E0E0E0; /* Couleur de fond grise pour les cellules vides */
+        border: 1px solid #000000; /* Bordure noire pour les cellules vides */
+        color: #000000; /* Couleur du texte noire pour les cellules vides */
+    }
+</style>
+
+
+{% endblock %}

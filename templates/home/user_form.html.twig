@@ -1,0 +1,95 @@
+{% extends 'home/back.html.twig' %}
+
+{% block body %}
+
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+                        <h2>{{ title }}</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <!-- Formulaire -->
+            <form action="{{ path(form_action, {'id': user.id}) }}" method="post" class="row g-3">
+                {{ form_start(form, {'attr': {'class': 'profile-form'}}) }}
+
+                <div class="col-md-6">
+                    {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Enter name'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ form_label(form.lastName, 'Last name', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Enter last name'}}) }}
+                    {{ form_errors(form.lastName) }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Enter your email'}}) }}
+                    {{ form_errors(form.email) }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ form_label(form.phone, 'Phone number', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.phone, {'attr': {'class': 'form-control', 'placeholder': 'Enter your phone number'}}) }}
+                    {{ form_errors(form.phone) }}
+                </div>
+               <h4 style ="color:red;">Want to edit the password?</h4>
+                <div class="col-md-6 mb-3">
+                    {{ form_label(form.oldPassword, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.oldPassword, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.oldPassword) }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form_label(form.newPassword.first, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.newPassword.first, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.newPassword.first) }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    {{ form_label(form.newPassword.second, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.newPassword.second, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.newPassword.second) }}
+                </div>
+
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-custom">{{ button_label }}</button>
+                </div>
+
+                {{ form_end(form) }}
+            </form>
+            <!-- end formulaire -->
+
+        </div>
+    </div>
+</div>
+<style>
+    .btn-custom {
+        background-color: #FF0000;
+        border-color: #FF0000;
+        color: #FFFFFF;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #c80000;
+        border-color: #c80000;
+    }
+</style>
+
+{% endblock %}
+

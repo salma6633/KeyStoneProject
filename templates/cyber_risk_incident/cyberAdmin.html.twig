@@ -1,0 +1,133 @@
+{% extends 'home/back.html.twig' %}
+
+{% block body %}
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="title-container">
+                <h1 class="page-title">
+                    Cyber Incidents
+                </h1>
+            </div>
+
+            <section class="incident-section">
+                <div class="container mt-5">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        {% for incident in incidents %}
+                            <div class="col-md-6 mb-4">
+                                <a href="{{ path('incident_detail', { id: incident.id }) }}" class="text-decoration-none">
+                                    <div class="card mb-4 shadow-lg incident-card">
+                                        <div class="card-header d-flex justify-content-between align-items-center text-white">
+                                            <h5 class="card-title mb-0">
+                                                <i class="fas fa-shield-alt"></i> Incident #{{ incident.id }}
+                                            </h5>
+                                            <span class="incident-score">Note: {{ incident.globalScore }}/10</span>
+                                        </div>
+                                        <!-- Eye icon for details -->
+                                        <div class="card-footer">
+                                            <i class="fas fa-eye"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <style>
+                .title-container {
+                    text-align: center;
+                    margin-bottom: 30px;
+                }
+
+                .page-title {
+                    font-size: 3em;
+                    color: #FFFFFF;
+                    background: linear-gradient(135deg, #FF0000 0%, #000000 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    padding: 10px;
+                    border-radius: 8px;
+                    display: inline-block;
+                    animation: fadeIn 1.5s ease-in-out;
+                }
+
+                .page-title i {
+                    margin-right: 10px;
+                    font-size: 1.2em;
+                }
+
+                .card {
+                    border-radius: 15px;
+                    cursor: pointer;
+                    overflow: hidden;
+                    background-color: #F5F5F5; /* Light grey background for the card */
+                    position: relative; /* For positioning the footer icon */
+                }
+
+                .card-header {
+                    border-radius: 15px 15px 0 0;
+                    padding: 20px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    color: #fff;
+                    background-color: #3A3A3A; /* Dark grey background for the header */
+                }
+
+                .card-header .incident-score {
+                    font-weight: bold;
+                    font-size: 1.2em;
+                    color: #de2a2a; /* Teal color for the score */
+                }
+
+                .card-title {
+                    color: #de2a2a; /* Teal color for the title */
+                }
+
+                .incident-card {
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+
+                .incident-card:hover {
+                    transform: scale(1.05);
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+                }
+
+                /* Hide text on hover */
+                .card-header h5,
+                .card-header .incident-score {
+                    opacity: 1;
+                    transition: opacity 0.3s ease;
+                }
+
+                .card:hover .card-header h5,
+                .card:hover .card-header .incident-score {
+                    opacity: 0; /* Hide text on hover */
+                }
+
+                .card-footer {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 3em;
+                    color: #de2a2a; 
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    background: none; /* Remove background */
+                }
+
+                .card:hover .card-footer {
+                    opacity: 1; /* Show the icon on hover */
+                }
+
+            </style>
+        </div>
+    </div>
+</div>
+{% endblock %}

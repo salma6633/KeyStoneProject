@@ -1,0 +1,137 @@
+{% extends 'home/back.html.twig' %}
+
+{% block body %}
+
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+                        <h2>{{ title }}</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <!-- Form -->
+            <form action="{{ path(form_action) }}" method="post" class="row g-3">
+                {{ form_start(form, {'attr': {'class': 'profile-form'}}) }}
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                            {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Enter the name'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                            {{ form_label(form.lastName, 'Last Name', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.lastName, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Enter the last name'}}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                            {{ form_label(form.phone, 'Phone number', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.phone, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Enter the phone number'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                            {{ form_label(form.email, 'Email address', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Enter a valid email address'}}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-outline">
+                            {{ form_label(form.password.first, 'Password', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.password.first, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Enter password', 'id': 'password'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-outline">
+                            {{ form_label(form.password.second, 'Confirm password', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.password.second, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Confirm password'}}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-check mb-4 visually-hidden">
+    {{ form_widget(form.terms, {'attr': {'class': 'form-check-input'}}) }}
+    {{ form_label(form.terms, 'I agree to the terms and conditions', {'label_attr': {'class': 'form-check-label'}}) }}
+</div>
+
+
+
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-custom">{{ button_label }}</button>
+                </div>
+
+                {{ form_end(form) }}
+            </form>
+            <!-- end Form -->
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-custom {
+        background-color: #FF0000;
+        border-color: #FF0000;
+        color: #FFFFFF;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #c80000;
+        border-color: #c80000;
+    }
+
+    .page-title-box {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .profile-form .form-label {
+        font-weight: bold;
+        color: white;
+    }
+
+    .profile-form .form-control {
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .profile-form .form-control-lg {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .form-outline {
+        margin-bottom: 20px;
+    }
+    
+    .visually-hidden {
+    display: none; /* Hide the element completely */
+}
+
+
+</style>
+
+{% endblock %}
